@@ -1,0 +1,61 @@
+
+{% extends '::base.html.twig' %}
+{% block body %}
+
+{% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
+{% block content %}
+<center>
+<h1>Upload your photos</h1>
+<form action="/path/" {{ form_enctype(form) }} method="post" >
+
+    {{ form_errors(form) }}
+
+    <div>
+        {{ form_label(form.files) }}
+        {{ form_errors(form.files) }}
+        {# Append [] to the full name of the form name - this is still an issue: https://github.com/symfony/symfony/issues/1400 #}
+        {{ form_widget(form.files, { 'full_name': form.files.get('full_name') ~ '[]' }) }}
+    </div>
+
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>
+<center>
+{% endblock content %}
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+// Pretty file
+if ($('.prettyFile').length) {
+    $('.prettyFile').each(function() {
+        var pF          = $(this),
+            fileInput   = pF.find('input[type="file"]');
+
+        fileInput.change(function() {
+            // When original file input changes, get its value, show it in the fake input
+            var files = fileInput[0].files,
+                info  = '';
+            if (files.length > 1) {
+                // Display number of selected files instead of filenames
+                info     = files.length + ' files selected';
+            } else {
+                // Display filename (without fake path)
+                var path = fileInput.val().split('\\');
+                info     = path[path.length - 1];
+            }
+
+            pF.find('.input-append input').val(info);
+        });
+
+        pF.find('.input-append').click(function(e) {
+            e.preventDefault();
+            // Make as the real input was clicked
+            fileInput.click();
+        })
+    });
+}
+</script>
+{% endblock %}

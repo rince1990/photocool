@@ -4,4 +4,4 @@ multimedia_homepage:
 
 multimedia_upload:
     path:     /upload
-    defaults: { _controller: multimediaBundle:Default:index }
+    defaults: { _controller: multimediaBundle:Upload:index }
