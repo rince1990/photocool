@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+
+{% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
+{% block content %}
+<center>
+<h2>ADMIN SIDE</h2>
+
+{% endblock content %}
+{% endblock %}
+{% block javascripts %}
+<script>
+$('#adminlink').addClass('selected')
+</script>
+{% endblock %}

@@ -1,0 +1,3 @@
+multimedia_homepage:
+    path:     /
+    defaults: { _controller: multimediaBundle:Default:index }

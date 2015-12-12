@@ -1,0 +1,22 @@
+multimedia:
+    resource: "@multimediaBundle/Resources/config/routing.yml"
+    prefix:   /multimedia
+
+
+# app:
+#     resource: "@AppBundle/Controller/"
+#     type:     annotation
+
+adrian_g_register:
+    resource: "@AdrianGRegisterBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+adrian_g_index:
+    pattern:  /
+    defaults: { _controller: AdrianGRegisterBundle:Default:index}
+
+login_check:
+    pattern:   /user/login_check
+
+logout:
+    pattern:   /user/logout

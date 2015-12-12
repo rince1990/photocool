@@ -1,0 +1,24 @@
+
+{% extends '::base.html.twig' %}
+{% block body %}
+
+{% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
+{% block content %}
+<center>
+<h1>Join us, it's free!</h1>
+{{ form_start(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
+
+    <button type="submit">Register!</button>
+{{ form_end(form) }}
+<center>
+{% endblock content %}
+{% endblock %}
+
+
+{% block javascripts %}
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+
+{% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
+{% block content %}
+<center>
+
+<img src="{{ asset('images/errors/404.jpg') }}" class="imgError" />
+
+{% endblock content %}
+{% endblock %}
+{% block javascripts %}
+<script>
+$('#homelink').addClass('selected')
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+
+user_registration:
+    pattern:  /register
+    defaults: { _controller: AdrianGRegisterBundle:Registration:register}
+
+adrian_g_admin:
+    pattern:  /admin
+    defaults: { _controller: AdrianGRegisterBundle:Default:admin}
+
+adrian_g_message:
+    pattern:  /message
+    defaults: { _controller: AdrianGRegisterBundle:Default:message}
+
+adrian_g_login:
+    pattern:  /login
+    defaults: { _controller: AdrianGRegisterBundle:Login:login}

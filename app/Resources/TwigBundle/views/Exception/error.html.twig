@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+
+{% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
+{% block content %}
+<center>
+  <h1>ERROR {{status_code}}</h1>
+  <h2>{{status_text}}</h2>
+
+{% endblock content %}
+{% endblock %}
+{% block javascripts %}
+<script>
+$('#homelink').addClass('selected')
+</script>
+{% endblock %}

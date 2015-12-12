@@ -1,0 +1,41 @@
+# app/config/security.yml
+jms_security_extra:
+      secure_all_services: false
+      expressions: true
+security:
+
+    encoders:
+        AdrianG\RegisterBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    providers:
+        our_db_provider:
+            entity:
+                class: AdrianGRegisterBundle:User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            provider: our_db_provider
+
+
+        secured_area:
+            anonymous:  ~
+            pattern: ^/user
+            form_login:
+                login_path: /user/login
+                check_path: /user/login_check
+                default_target_path: /
+            logout:
+                path: /user/logout
+                target: /
+
+    access_control:
+        # require ROLE_ADMIN for /admin*
+        - { path: ^/user/admin, roles: ROLE_ADMIN }
+        - { path: /user/login$, access: "!isAuthenticated()" }
+        - { path: /user/register$, access: "!isAuthenticated()" }
+        - { path: /multimedia/upload$, access: "isAuthenticated()" }

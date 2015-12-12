@@ -1,0 +1,7 @@
+parameters:
+#    adrian_g_register.example.class: AdrianG\RegisterBundle\Example
+
+services:
+#    adrian_g_register.example:
+#        class: %adrian_g_register.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
