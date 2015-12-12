@@ -1,3 +1,7 @@
 multimedia_homepage:
     path:     /
     defaults: { _controller: multimediaBundle:Default:index }
+
+multimedia_upload:
+    path:     /upload
+    defaults: { _controller: multimediaBundle:Default:index }
