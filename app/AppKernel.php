@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+define('WEB_DIRECTORY', __DIR__);
 
 class AppKernel extends Kernel
 {
@@ -19,6 +20,7 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new AdrianG\RegisterBundle\AdrianGRegisterBundle(),
             new multimediaBundle\multimediaBundle(),
         );

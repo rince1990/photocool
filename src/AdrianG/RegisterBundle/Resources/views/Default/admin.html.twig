@@ -4,12 +4,44 @@
 {% block sidemenu %} {{ parent() }} {% endblock sidemenu %}
 {% block content %}
 <center>
-<h2>ADMIN SIDE</h2>
+<h1>ADMIN CENTER</h1>
+{% if message is defined %}
+    <div class="errorMessage">{{ message }}</div>
+{% endif %}
+<h2>As admin you can view and edit any gallery you want</h2>
+<a href="{{path('adrian_g_allGallery')}}" >View all galleries</a>
+<hr>
+</center>
 
+<p>You can activate and deactivate users of this web:</p>
+
+
+<form method="post" action="{{path('adrian_g_status',{'status': 'enable'})}}">
+Disabled users:
+<select name="userid" id="disabledUsers">
+{% for user in users if user.isActive == false %}
+<option value="{{user.id}}">{{user.email}}</option>
+{% endfor %}
+</select>
+<input type="Submit" value="Enable">
+</form>
+<br><br>
+
+<form method="post" action="{{path('adrian_g_status',{'status': 'disable'})}}">
+Enabled users:
+<select name="userid" id="disabledUsers">
+{% for user in users if user.isActive%}
+<option value="{{user.id}}">{{user.email}}</option>
+{% endfor %}
+  </select>
+  <input type="Submit" value="Disable">
+<form>
 {% endblock content %}
 {% endblock %}
 {% block javascripts %}
 <script>
 $('#adminlink').addClass('selected')
+
+
 </script>
 {% endblock %}

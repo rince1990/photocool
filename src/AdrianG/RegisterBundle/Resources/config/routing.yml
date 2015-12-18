@@ -8,6 +8,10 @@ adrian_g_admin:
     pattern:  /admin
     defaults: { _controller: AdrianGRegisterBundle:Default:admin}
 
+adrian_g_status:
+    pattern:  /admin/status/{status}
+    defaults: { _controller: AdrianGRegisterBundle:Default:status}
+
 adrian_g_message:
     pattern:  /message
     defaults: { _controller: AdrianGRegisterBundle:Default:message}
@@ -15,3 +19,7 @@ adrian_g_message:
 adrian_g_login:
     pattern:  /login
     defaults: { _controller: AdrianGRegisterBundle:Login:login}
+
+adrian_g_allGallery:
+    path:     /admingalleries
+    defaults: { _controller: AdrianGRegisterBundle:Default:allGallery }

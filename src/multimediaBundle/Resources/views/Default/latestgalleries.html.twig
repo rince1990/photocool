@@ -1,0 +1,8 @@
+<h2 class='OrangeText' id='myGalleriesh2'>Latest galleries<h2>
+{% for gallery in galleries %}
+  <div class="side_menu_item">
+    <a href="{{path('multimedia_view_gallery',{'galleryID': gallery.id})}}">
+      <img class="galleryLogo" src="{{asset(gallery.path) }}" alt="gallery image" width="142" height="50" />
+    </a> <span class="info">{{ gallery.name }}</span>
+  </div>
+{% endfor %}

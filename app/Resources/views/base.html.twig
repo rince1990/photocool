@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('style/style.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('style/colour_orange.css') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('style/image_viewer.css') }}" />
-        <script src="{{ asset('JQuery/jquery-2.1.4.min.js') }}"></script>
-        <title>{% block title %}PhotoCool{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-      <div id="logo">
-        <h1>photocool</h1>
-      </div>
-      <div id="menu">
-        <ul>
-          <li><a id="homelink" href="{{ path('adrian_g_index') }}">home</a></li>
-          <li><a id="loginlink"href="{{ path('adrian_g_login') }}">Multimedia</a></li>
-          <li><a id="loginlink"href="{{ path('adrian_g_login') }}">Login</a></li>
-          <li><a id="registerlink"href="{{ path('user_registration') }}">Register</a></li>
-          <li><a id="adminlink"href="{{ path('adrian_g_admin') }}">Admin</a></li>
-          <li><a id="logoutlink"href="{{ path('logout') }}">Log out</a></li>
-        </ul>
-        <div id="userWelcome"><span>Welcome {{app.user.username|default('guest')}}<span></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('style/style.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('style/colour_orange.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset('style/image_viewer.css') }}" />
+  {% block css %} {% endblock %}
+  <script src="{{ asset('JQuery/jquery-2.1.4.min.js') }}"></script>
+  <title>{% block title %}PhotoCool{% endblock %}</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+  <div id="logo">
+    <h1>photocool</h1>
+  </div>
+  <div id="menu">
+    <ul>
+      <li><a id="homelink" href="{{ path('adrian_g_index') }}">home</a></li>
+      <li><a id="multimedialink"href="{{ path('multimedia_index') }}">Multimedia</a></li>
+      <li><a id="searchlink"href="{{ path('multimedia_search') }}">Search</a></li>
+      {% if is_granted('ROLE_ADMIN') %} <li><a id="adminlink"href="{{ path('adrian_g_admin') }}">Admin</a></li> {% endif %}
+      {% if app.user %}
+      <li><a id="logoutlink"href="{{ path('logout') }}">Log out</a></li>
+      {% else %}
+      <li><a id="loginlink"href="{{ path('adrian_g_login') }}">Login</a></li>
+      <li><a id="registerlink"href="{{ path('user_registration') }}">Register</a></li>
+      {% endif %}
+    </ul>
+    <div id="userWelcome"><span>Welcome {{app.user.username|default('guest')}}<span></div>
+    </div>
 
-      <div id="site_content">
-          <div id="side_menu">
-          {% block sidemenu %}
-            <h2><u>Latest Galleries</u></h2>
-            <div class="side_menu_item"> <a href="#"><img class="galleryLogo" src="{{ asset('images/series_one.jpg') }}" alt="" width="142" height="50" /></a> <span class="info">Series_One</span> </div>
-            <div class="side_menu_item"> <a href="#"><img class="galleryLogo" src="{{ asset('images/series_two.jpg') }}" alt="" width="142" height="50" /></a> <span class="info">Series_Two</span> </div>
-            <div class="side_menu_item"> <a href="#"><img class="galleryLogo" src="{{ asset('images/series_three.jpg') }}" alt="" width="142" height="50" /></a> <span class="info">Series_Three</span> </div>
-            <div class="side_menu_item"> <a href="#"><img class="galleryLogo" src="{{ asset('images/series_four.jpg') }}" alt="" width="142" height="50" /></a> <span class="info">Series_Four</span> </div>
-            <div class="side_menu_item"> <a href="#"><img class="galleryLogo" src="{{ asset('images/series_five.jpg') }}" alt="" width="142" height="50" /></a> <span class="info">Series_Five</span> </div>
-          {% endblock %}
-          </div>
-          <div id="content">
-            {% block content %}
-
-            {% endblock %}
-          </div>
+    <div id="site_content">
+      <div id="side_menu">
+        {% block sidemenu %}
+          {% if app.user %}
+            {{ render(controller('multimediaBundle:MyGalleries:myGalleries')) }}
+          {% else %}
+            {{ render(controller('multimediaBundle:LatestGalleries:latestGalleries')) }}
+          {% endif %}
+        {% endblock %}
       </div>
-        {% block javascripts %}
-        <script>
-        $('#homelink').addClass('selected')
-        </script>
-      {% endblock %}
-    </body>
-</html>
+      <div id="content">
+        {% block content %}
+
+        {% endblock %}
+      </div>
+    </div>
+    {% block javascripts %}
+    <script>
+    $('#homelink').addClass('selected')
+    </script>
+    {% endblock %}
+  </body>
+  </html>

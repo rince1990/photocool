@@ -1,0 +1,38 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+<center>
+<h1>Create Gallery</h1>
+
+
+
+<form action="{{ path('multimedia_create_gallerySQL') }}" method="post" enctype="multipart/form-data">
+<h3>Gallery name:</h3><br>
+<input name="galleryName" type="text" required><br><br>
+<h3>Select a Image or Icon to represent the gallery:</h3><br>
+<input type="file" id="files" name="file" accept="image/*" required/><br><br>
+<img id="imagePreview" /><br><br>
+<input type="submit" value="Create Gallery!">
+</form>
+</center>
+{% endblock content %}
+{% endblock %}
+{% block javascripts %}
+<script>$('#multimedialink').addClass('selected');
+
+document.getElementById("files").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("imagePreview").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+</script>
+{% endblock %}

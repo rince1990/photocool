@@ -1,0 +1,29 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+{% if app.user %}
+{% if (app.user == owner or app.user.hasRole('ROLE_ADMIN')) %}
+<a onclick="return confirm('Are you sure you would like to delete this Image?');" href="{{path('multimedia_delete_imageSQL',{'imageID': image.id})}}">
+  <img id="deleteButton"src="{{ asset('images/delete_button.png')}}"></a>
+  {% endif %}
+{% endif %}
+<center>
+  <h1>Image: {{ image.name }}</h1>
+  {% if app.user %}{% if (app.user == owner or app.user.hasRole('ROLE_ADMIN')) %}
+  <a href="{{path('multimedia_modify_image',{'imageID': image.id})}}"><button>Modify</button></a>
+  {% endif %}{% endif %}
+
+  <img id="ImageView" src="{{asset(image.path) }}" alt="" />
+  <a href="{{app.request.headers.get('referer')}}"> <h2><-Back</h2> </a>
+
+</center>
+
+    {% endblock %}
+  {% endblock %}
+  {% block javascripts %}
+  <script>$('#multimedialink').addClass('selected');</script>
+
+{% endblock %}

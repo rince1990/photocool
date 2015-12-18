@@ -7,10 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Sensio\\Bundle\\GeneratorBundle' => array($vendorDir . '/sensio/generator-bundle'),
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
+    'PhpCollection' => array($vendorDir . '/phpcollection/phpcollection/src'),
     'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
+    'JMS\\SerializerBundle' => array($vendorDir . '/jms/serializer-bundle'),
+    'JMS\\Serializer' => array($vendorDir . '/jms/serializer/src'),
     'JMS\\SecurityExtraBundle' => array($vendorDir . '/jms/security-extra-bundle'),
     'JMS\\DiExtraBundle' => array($vendorDir . '/jms/di-extra-bundle'),
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),

@@ -1,0 +1,52 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+<center>
+  <h1>Modify zone</h1>
+
+  <form action="{{ path('multimedia_modify_gallerySQL',{'galleryID': gallery.id}) }}" method="post" id="formulario" enctype="multipart/form-data">
+  <h3>Gallery name:</h3><br>
+  <input name="galleryName" type="text" value="{{ gallery.name }}" disabled required>
+  <h3>visibility<select name="visibility" id="visibility">
+  <option value="Public">Public</option>
+  <option value="Private">Private</option>
+  <option value="Limited">Limited Access</option>
+  <option value="Specific">Specific users</option>
+</select></h3>
+<textarea name="addUser" id="addUser" placeholder="admin@admin.com, user@user.com, ...">{{user_acess_emails}}</textarea>
+<br><br>
+Select new Image(optional):
+<input type="file" id="files" name="file" accept="image/*"/><br><br>
+  <input type="submit" value="Modify Gallery!">
+</form><br/>
+  <img id="ImageView" src="{{asset(gallery.path) }}" alt="" />
+
+</center>
+
+    {% endblock %}
+  {% endblock %}
+  {% block javascripts %}
+  <script>$('#multimedialink').addClass('selected');
+
+  $( document ).ready(function() {
+        $("#visibility").val( "{{ gallery.visibility }}");
+        if ('{{gallery.visibility}}' != 'Specific') {
+          $('#addUser').hide();
+          console.log('hola');
+        }
+    });
+
+
+  $('#visibility').change(function(){
+    if( $(this).val() == 'Specific'){
+        $('#addUser').show();
+    }else{
+        $('#addUser').hide();
+    }
+});
+</script>
+
+{% endblock %}

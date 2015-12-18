@@ -1,0 +1,32 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+<center>
+<h1>Multimedia Menu</h1>
+<center>
+  <a href="{{ path('multimedia_create_gallery') }}">
+    <img class ="multimediaMenuImage"src="{{ asset('images/gallery.png') }}"/>
+  </a>
+  <br>Create a new Gallery<br>
+  <hr>
+  <a href="{{ path('multimedia_accesible_gallery') }}">
+    <img class ="multimediaMenuImage"src="{{ asset('images/gallery-icon.png') }}"/>
+  </a>
+  <br>Accesible Galleries<br>
+  <hr>
+  <a href="#">
+    <img class ="multimediaMenuImage"src="{{ asset('images/profile.png') }}"/>
+  </a>
+  <br><p style='text-decoration:line-through'>Edit my profile</p>(under construction)<br>
+
+{% endblock content %}
+{% endblock %}
+
+
+{% block javascripts %}
+<script>$('#multimedialink').addClass('selected');</script>
+
+{% endblock %}

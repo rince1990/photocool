@@ -5,13 +5,13 @@ namespace AdrianG\RegisterBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
 * @ORM\Table(name="app_users")
 * @ORM\Entity(repositoryClass="AdrianG\RegisterBundle\Repository\UserRepository")
 */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
   /**
   * @ORM\Column(type="integer")
@@ -64,9 +64,10 @@ class User implements UserInterface, \Serializable
   public function __construct()
   {
     //parent::__construct();
-  // your own logic
+    // your own logic
     $this->isActive = 0;
     $this->roles = 'ROLE_USER';
+    $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     //$this->isActive = true;
     // may not be needed, see section on salt below
     // $this->salt = md5(uniqid(null, true));
@@ -227,4 +228,100 @@ class User implements UserInterface, \Serializable
   {
     return array($this->roles);
   }
+
+
+  /**
+  * @ORM\OneToMany(targetEntity="\multimediaBundle\Entity\Gallery", mappedBy="owner")
+  */
+  private $galleries;
+
+  public function addGalleries(\multimediaBundle\Entity\Gallery $galleries)
+  {
+    $this->galleries[] = $galleries;
+  }
+
+  public function getGalleries()
+  {
+    return $this->galleries;
+  }
+
+
+
+  /**
+  * Add gallery
+  *
+  * @param \multimediaBundle\Entity\Gallery $gallery
+  *
+  * @return User
+  */
+  public function addGallery(\multimediaBundle\Entity\Gallery $gallery)
+  {
+    $this->galleries[] = $gallery;
+
+    return $this;
+  }
+
+  /**
+  * Remove gallery
+  *
+  * @param \multimediaBundle\Entity\Gallery $gallery
+  */
+  public function removeGallery(\multimediaBundle\Entity\Gallery $gallery)
+  {
+    $this->galleries->removeElement($gallery);
+  }
+
+  /**
+  * @ORM\ManyToMany(targetEntity="\multimediaBundle\Entity\Gallery", mappedBy="users_access")
+  */
+  private $users_access;
+
+  /**
+  * Add usersAccess
+  *
+  * @param \multimediaBundle\Entity\Gallery $usersAccess
+  *
+  * @return User
+  */
+  public function addUsersAccess(\multimediaBundle\Entity\Gallery $usersAccess)
+  {
+    $this->users_access[] = $usersAccess;
+
+    return $this;
+  }
+
+  /**
+  * Remove usersAccess
+  *
+  * @param \multimediaBundle\Entity\Gallery $usersAccess
+  */
+  public function removeUsersAccess(\multimediaBundle\Entity\Gallery $usersAccess)
+  {
+    $this->users_access->removeElement($usersAccess);
+  }
+
+  /**
+  * Get usersAccess
+  *
+  * @return \Doctrine\Common\Collections\Collection
+  */
+  public function getUsersAccess()
+  {
+    return $this->users_access;
+  }
+
+  public function hasRole($role) {
+    if(in_array($role, $this->getRoles())) return true;
+    return false;
+  }
+
+
+  public function isAccountNonExpired(){ return true;}
+  public function isAccountNonLocked(){ return true;}
+  public function isCredentialsNonExpired(){return true;}
+  
+  public function isEnabled(){
+    return $this->isActive;
+  }
+
 }

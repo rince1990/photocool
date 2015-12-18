@@ -22,20 +22,26 @@ security:
             provider: our_db_provider
 
 
-        secured_area:
-            anonymous:  ~
-            pattern: ^/user
+        default:
+            pattern: ^/
             form_login:
-                login_path: /user/login
-                check_path: /user/login_check
-                default_target_path: /
+              login_path: /login
+              check_path: /login_check
+              default_target_path: /
             logout:
-                path: /user/logout
-                target: /
+              path: /logout
+              target: /
+            anonymous: true
+
+
 
     access_control:
         # require ROLE_ADMIN for /admin*
         - { path: ^/user/admin, roles: ROLE_ADMIN }
-        - { path: /user/login$, access: "!isAuthenticated()" }
+        - { path: /login$, access: "!isAuthenticated()" }
         - { path: /user/register$, access: "!isAuthenticated()" }
-        - { path: /multimedia/upload$, access: "isAuthenticated()" }
+        - { path: ^/multimedia/search, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/multimedia/upload, access: "isAuthenticated()" }
+        - { path: ^/multimedia/galleryAcess, access: "isAuthenticated()" }
+        - { path: ^/multimedia/createGallery, access: "isAuthenticated()" }
+        - { path: ^/multimedia/delete, access: "isAuthenticated()" }

@@ -1,0 +1,38 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+{% if app.user %}{% if (app.user == gallery.owner or app.user.hasRole('ROLE_ADMIN')) %}
+<a href="{{path('multimedia_upload',{'galleryID': gallery.id})}}"><img id="uploadButton"src="{{ asset('images/upload_button.png')}}"></a>
+<a onclick="return confirm('Are you sure you would like to delete this gallery?');" href="{{path('multimedia_delete_gallerySQL',{'galleryID': gallery.id})}}">
+  <img id="deleteButton"src="{{ asset('images/delete_button.png')}}"></a>
+  {% endif %}{% endif %}
+<center>
+  <h1>Gallery: {{ gallery.name }} ({{gallery.visibility}})</h1>
+  {% if app.user %}{% if (app.user == gallery.owner or app.user.hasRole('ROLE_ADMIN')) %}
+  <a href="{{path('multimedia_modify_gallery',{'galleryID': gallery.id})}}"><button>Modify</button></a>
+  {% endif %}{% endif %}
+</center>
+    <div id="gallery">
+      <em id="thumbs">
+        {% for image in images %}
+          <a href="{{path('multimedia_view_image',{'imageID': image.id})}}">
+            <img src="{{asset(image.path) }}" alt="" />
+          </a>
+          {% endfor %}
+          {# this is still disabled <a href="{{path('multimedia_view_gallery',{'galleryID': gallery.id})}}"> #}
+        </em>
+      </div>
+
+
+    {% endblock %}
+  {% endblock %}
+  {% block javascripts %}
+  <script>
+  $('#multimedialink').addClass('selected');
+
+
+  </script>
+{% endblock %}

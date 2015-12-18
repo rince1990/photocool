@@ -1,0 +1,26 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+<center>
+  <h1>Modify zone</h1>
+
+  <form action="{{ path('multimedia_modify_imageSQL',{'imageID': image.id}) }}" method="post">
+  <h3>Image name:</h3><br>
+  <input name="imageName" type="text" value="{{ image.name }}"required><br><br>
+  <h3>tags (separated by coma):</h3><br>
+  <input name="tags" type="text" placeholder="Nature, Animals, ..."><br><br>
+  <input type="submit" value="Modify Image!">
+</form><br/><br/>
+  <img id="ImageView" src="{{asset(image.path) }}" alt="" />
+
+</center>
+
+    {% endblock %}
+  {% endblock %}
+  {% block javascripts %}
+  <script>$('#multimedialink').addClass('selected');</script>
+
+{% endblock %}

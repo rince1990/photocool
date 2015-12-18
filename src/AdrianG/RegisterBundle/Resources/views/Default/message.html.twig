@@ -5,6 +5,7 @@
 {% block content %}
 <center>
 <h2>{{ message }}</h2>
+return to previus page -><a href="{{app.request.headers.get('referer')}}"> LINK </a>
 
 
 {% endblock content %}

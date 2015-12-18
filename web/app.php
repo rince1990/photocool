@@ -5,6 +5,10 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @var Composer\Autoload\ClassLoader
  */
+
+ $uploadDir = dirname($this->container->getParameter('kernel.root_dir') . '/../web/bundles/multimediaBundle/uploads');
+ echo '<script>console.log('.$uploadDir .');</script>';
+ define('WEB_DIRECTORY',$uploadDir);
 $loader = require __DIR__.'/../app/autoload.php';
 include_once __DIR__.'/../app/bootstrap.php.cache';
 

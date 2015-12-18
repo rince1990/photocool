@@ -15,8 +15,12 @@ adrian_g_index:
     pattern:  /
     defaults: { _controller: AdrianGRegisterBundle:Default:index}
 
+adrian_g_login:
+    pattern:  /login
+    defaults: { _controller: AdrianGRegisterBundle:Login:login}
+
 login_check:
-    pattern:   /user/login_check
+    pattern:   /login_check
 
 logout:
-    pattern:   /user/logout
+    pattern:   /logout

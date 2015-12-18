@@ -6,6 +6,7 @@ body
   padding: 0px;
   margin: 0px;
   font-size: .68em;
+  mheight: 100%;
 }
 
 p
@@ -73,6 +74,7 @@ ol li
 #logo, #menu, #site_content
 { margin-left: auto;
   margin-right: auto;
+  height: 100%;
 }
 
 /* logo */
@@ -145,13 +147,14 @@ ol li
   border-right: 1px solid;
   border-bottom: 1px solid;
   border-left: 1px solid;
+  min-height: 500px;
 }
 
 /* side menu */
 #side_menu
 { padding: 22px 3px 10px 19px;
   float: left;
-  width: 170px;
+  width: 20%;
 }
 
 .side_menu_item
@@ -246,4 +249,63 @@ div.row1 span.forminput
 .galleryLogo{
   border-radius: 1em;
 
+}
+.multimediaMenuImage{
+  width: 10%;
+}
+#imagePreview{
+  width: 30%;
+}
+
+#ImageView{
+  width: 100%;
+  border-radius: 1em;
+  border-color: white;
+  border: 1px solid;
+}
+
+#nextArrow{
+  width: 10%;
+  float:  right;
+
+}
+#prevArrow{
+width: 10%;
+float:  left;
+}
+
+#uploadButton{
+  position: absolute;
+  width: 10%;
+}
+.OrangeText{
+  color: rgb(180, 120, 26)
+}
+#myGalleriesh2{
+  padding-left : 20px;
+}
+#deleteButton{
+  width: 5%;
+  float: right;
+}
+#visibilitySpan{
+  float:left;
+}
+
+.menu_item{
+float:left;
+}
+.menu_item img
+{ display: block;
+  margin: 5px;
+    border: 1px solid;
+}
+.toUpper{
+  text-transform: uppercase;
+}
+#loading-wheel{
+  width: 10%;
+}
+#welcome{
+  width: 50%;
 }

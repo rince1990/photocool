@@ -105,13 +105,108 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // multimedia_homepage
-        if (rtrim($pathinfo, '/') === '/multimedia') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'multimedia_homepage');
+        if (0 === strpos($pathinfo, '/multimedia')) {
+            // multimedia_index
+            if ($pathinfo === '/multimedia/index') {
+                return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::indexAction',  '_route' => 'multimedia_index',);
             }
 
-            return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::indexAction',  '_route' => 'multimedia_homepage',);
+            // multimedia_upload
+            if (0 === strpos($pathinfo, '/multimedia/upload') && preg_match('#^/multimedia/upload/(?P<galleryID>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_upload')), array (  '_controller' => 'multimediaBundle\\Controller\\UploadController::uploadAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/gallery')) {
+                // multimedia_accesible_gallery
+                if ($pathinfo === '/multimedia/galleryAcess') {
+                    return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::accesibleGalleryAction',  '_route' => 'multimedia_accesible_gallery',);
+                }
+
+                // multimedia_view_gallery
+                if (preg_match('#^/multimedia/gallery/(?P<galleryID>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_view_gallery')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::viewGalleryAction',));
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/image')) {
+                // multimedia_view_image
+                if (preg_match('#^/multimedia/image/(?P<imageID>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_view_image')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::viewImageAction',));
+                }
+
+                // multimedia_modify_image
+                if (preg_match('#^/multimedia/image/(?P<imageID>[^/]++)/modify$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_modify_image')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::modifyImageAction',));
+                }
+
+                // multimedia_modify_imageSQL
+                if (preg_match('#^/multimedia/image/(?P<imageID>[^/]++)/modifySQL$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_modify_imageSQL')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::modifyimageSQLAction',));
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/createGallery')) {
+                // multimedia_create_gallery
+                if ($pathinfo === '/multimedia/createGallery') {
+                    return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::createGalleryAction',  '_route' => 'multimedia_create_gallery',);
+                }
+
+                // multimedia_create_gallerySQL
+                if ($pathinfo === '/multimedia/createGallerySQL') {
+                    return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::createGallerySQLAction',  '_route' => 'multimedia_create_gallerySQL',);
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/delete')) {
+                // multimedia_delete_gallerySQL
+                if (preg_match('#^/multimedia/delete/(?P<galleryID>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_delete_gallerySQL')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::deleteGallerySQLAction',));
+                }
+
+                // multimedia_delete_imageSQL
+                if (0 === strpos($pathinfo, '/multimedia/delete/image') && preg_match('#^/multimedia/delete/image/(?P<imageID>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_delete_imageSQL')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::deleteImageSQLAction',));
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/gallery')) {
+                // multimedia_modify_gallery
+                if (preg_match('#^/multimedia/gallery/(?P<galleryID>[^/]++)/modify$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_modify_gallery')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::modifyGalleryAction',));
+                }
+
+                // multimedia_modify_gallerySQL
+                if (preg_match('#^/multimedia/gallery/(?P<galleryID>[^/]++)/modifySQL$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'multimedia_modify_gallerySQL')), array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::modifyGallerySQLAction',));
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/multimedia/search')) {
+                // multimedia_search
+                if ($pathinfo === '/multimedia/search') {
+                    return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::AJAXSearchAction',  '_route' => 'multimedia_search',);
+                }
+
+                if (0 === strpos($pathinfo, '/multimedia/search/AJAX')) {
+                    // multimedia_ajax_search_gallery
+                    if ($pathinfo === '/multimedia/search/AJAX/gallery') {
+                        return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::AJAXDataGalleryAction',  '_route' => 'multimedia_ajax_search_gallery',);
+                    }
+
+                    // multimedia_ajax_search_photo
+                    if ($pathinfo === '/multimedia/search/AJAX/photo') {
+                        return array (  '_controller' => 'multimediaBundle\\Controller\\DefaultController::AJAXDataPhotoAction',  '_route' => 'multimedia_ajax_search_photo',);
+                    }
+
+                }
+
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/user')) {
@@ -120,9 +215,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\RegistrationController::registerAction',  '_route' => 'user_registration',);
             }
 
-            // adrian_g_admin
-            if ($pathinfo === '/user/admin') {
-                return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::adminAction',  '_route' => 'adrian_g_admin',);
+            if (0 === strpos($pathinfo, '/user/admin')) {
+                // adrian_g_admin
+                if ($pathinfo === '/user/admin') {
+                    return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::adminAction',  '_route' => 'adrian_g_admin',);
+                }
+
+                // adrian_g_status
+                if (0 === strpos($pathinfo, '/user/admin/status') && preg_match('#^/user/admin/status/(?P<status>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'adrian_g_status')), array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::statusAction',));
+                }
+
             }
 
             // adrian_g_message
@@ -130,9 +233,9 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::messageAction',  '_route' => 'adrian_g_message',);
             }
 
-            // adrian_g_login
-            if ($pathinfo === '/user/login') {
-                return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\LoginController::loginAction',  '_route' => 'adrian_g_login',);
+            // adrian_g_allGallery
+            if ($pathinfo === '/user/admingalleries') {
+                return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::allGalleryAction',  '_route' => 'adrian_g_allGallery',);
             }
 
         }
@@ -146,14 +249,22 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\DefaultController::indexAction',  '_route' => 'adrian_g_index',);
         }
 
-        if (0 === strpos($pathinfo, '/user/log')) {
-            // login_check
-            if ($pathinfo === '/user/login_check') {
-                return array('_route' => 'login_check');
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // adrian_g_login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'AdrianG\\RegisterBundle\\Controller\\LoginController::loginAction',  '_route' => 'adrian_g_login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
             }
 
             // logout
-            if ($pathinfo === '/user/logout') {
+            if ($pathinfo === '/logout') {
                 return array('_route' => 'logout');
             }
 

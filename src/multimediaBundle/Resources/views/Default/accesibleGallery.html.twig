@@ -1,0 +1,35 @@
+
+{% extends '::base.html.twig' %}
+
+
+{% block body %}
+{% block content %}
+<center>
+<h1>Accesible Galleries</h1>
+</center>
+
+{% for gallery in app.user.getUsersAccess if gallery.visibility == 'Specific'%}
+  <div class="menu_item">
+    <a href="{{path('multimedia_view_gallery',{'galleryID': gallery.id})}}">
+      <img class="galleryLogo" src="{{asset(gallery.path) }}" alt="gallery image" width="142" height="50" />
+    </a> <h3 class="toUpper">{{ gallery.name }} </h3>  Owner: {{gallery.owner.getUserName}}</span>
+  </div>
+{% endfor %}
+
+{% for gallery in galleries if gallery.visibility == 'Limited'%}
+  <div class="menu_item">
+    <a href="{{path('multimedia_view_gallery',{'galleryID': gallery.id})}}">
+      <img class="galleryLogo" src="{{asset(gallery.path) }}" alt="gallery image" width="142" height="50" />
+    </a> <h3 class="toUpper">{{ gallery.name }} </h3>  Owner: {{gallery.owner.getUserName}}</span>
+  </div>
+{% endfor %}
+
+</center>
+{% endblock content %}
+{% endblock %}
+
+
+{% block javascripts %}
+<script>$('#multimedialink').addClass('selected');</script>
+
+{% endblock %}

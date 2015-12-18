@@ -1,7 +1,62 @@
-multimedia_homepage:
-    path:     /
+multimedia_index:
+    path:     /index
     defaults: { _controller: multimediaBundle:Default:index }
 
 multimedia_upload:
-    path:     /upload
-    defaults: { _controller: multimediaBundle:Upload:index }
+    path:     /upload/{galleryID}
+    defaults: { _controller: multimediaBundle:Upload:upload }
+
+multimedia_accesible_gallery:
+    path:     /galleryAcess
+    defaults: { _controller: multimediaBundle:Default:accesibleGallery }
+
+multimedia_view_gallery:
+    path:     /gallery/{galleryID}
+    defaults: { _controller: multimediaBundle:Default:viewGallery }
+
+multimedia_view_image:
+    path:     /image/{imageID}
+    defaults: { _controller: multimediaBundle:Default:viewImage }
+
+multimedia_modify_image:
+    path:     /image/{imageID}/modify
+    defaults: { _controller: multimediaBundle:Default:modifyImage }
+
+multimedia_modify_imageSQL:
+    path:     /image/{imageID}/modifySQL
+    defaults: { _controller: multimediaBundle:Default:modifyimageSQL }
+
+multimedia_create_gallery:
+    path:     /createGallery
+    defaults: { _controller: multimediaBundle:Default:createGallery }
+
+multimedia_create_gallerySQL:
+    path:     /createGallerySQL
+    defaults: { _controller: multimediaBundle:Default:createGallerySQL }
+
+multimedia_delete_gallerySQL:
+    path:     /delete/{galleryID}
+    defaults: { _controller: multimediaBundle:Default:deleteGallerySQL }
+
+multimedia_delete_imageSQL:
+    path:     /delete/image/{imageID}
+    defaults: { _controller: multimediaBundle:Default:deleteImageSQL }
+
+multimedia_modify_gallery:
+    path:     /gallery/{galleryID}/modify
+    defaults: { _controller: multimediaBundle:Default:modifyGallery }
+
+multimedia_modify_gallerySQL:
+    path:     /gallery/{galleryID}/modifySQL
+    defaults: { _controller: multimediaBundle:Default:modifyGallerySQL }
+
+multimedia_search:
+    path:     /search
+    defaults: { _controller: multimediaBundle:Default:AJAXSearch }
+multimedia_ajax_search_gallery:
+    pattern:  /search/AJAX/gallery
+    defaults: { _controller: multimediaBundle:Default:AJAXDataGallery }
+
+multimedia_ajax_search_photo:
+    pattern:  /search/AJAX/photo
+    defaults: { _controller: multimediaBundle:Default:AJAXDataPhoto }
